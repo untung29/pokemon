@@ -1,22 +1,39 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
+
+// Component
+import PokemonItem from "../../components/pokemon-item/pokemon-item.component";
+
+// GraphQL
+import { useQuery, gql } from "@apollo/client";
+
+const GET_LIST_POKEMONS = gql`
+  query PokemonList {
+    pokemons {
+      results {
+        id
+        name
+        image
+      }
+    }
+  }
+`;
 
 const PokemonList = () => {
-  const [pokemonList, setPokemonList] = useState([]);
+  const { loading, error, data } = useQuery(GET_LIST_POKEMONS);
+  // {data.pokemons.results}
 
-  useEffect(() => {
-    axios.get("https://pokeapi.co/api/v2/pokemon").then(requestedData => {
-      setPokemonList(requestedData.data.results);
-    });
-  }, []);
-
-  console.log(pokemonList);
-
-  return (
-    <div>
-      <h1>Pokemon List Page!!</h1>
-    </div>
-  );
+  if (!loading) {
+    return (
+      <div className="row">
+        <div className="col-md-4 mt-3">
+          <PokemonItem imgUrl={data.pokemons.results[0].image} pokemonName={data.pokemons.results[0].name} />
+        </div>
+      </div>
+    );
+  } else {
+    return <h1>Loading...</h1>;
+  }
 };
 
 export default PokemonList;
