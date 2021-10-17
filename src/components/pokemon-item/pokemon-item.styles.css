@@ -1,3 +1,7 @@
-.pokemon-img {
-  width: 18rem;
+.pokemon-card {
+  /* width: 9rem; */
+}
+
+.card-top-padding {
+  padding: 0 1rem;
 }

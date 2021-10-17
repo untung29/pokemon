@@ -9,7 +9,7 @@ import { useQuery, gql } from "@apollo/client";
 
 const GET_LIST_POKEMONS = gql`
   query PokemonList {
-    pokemons {
+    pokemons(limit: 18) {
       results {
         id
         name
@@ -21,14 +21,17 @@ const GET_LIST_POKEMONS = gql`
 
 const PokemonList = () => {
   const { loading, error, data } = useQuery(GET_LIST_POKEMONS);
-  // {data.pokemons.results}
 
   if (!loading) {
     return (
       <div className="row">
-        <div className="col-md-4 mt-3">
-          <PokemonItem imgUrl={data.pokemons.results[0].image} pokemonName={data.pokemons.results[0].name} />
-        </div>
+        {data.pokemons.results.map(({ id, name, image }) => {
+          return (
+            <div className="col-lg-2 col-md-3 col-sm-6 mt-3">
+              <PokemonItem pokemonNumber={id} key={id} imgUrl={image} pokemonName={name} />
+            </div>
+          );
+        })}
       </div>
     );
   } else {
