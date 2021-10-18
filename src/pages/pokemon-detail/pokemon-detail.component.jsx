@@ -6,6 +6,7 @@ import "react-tabs/style/react-tabs.css";
 // components
 import PokemonThumbnail from "../../components/pokemon-thumbnail/pokemon-thumbnail.component.jsx";
 import PokemonType from "../../components/pokemon-type/pokemon-type.component";
+import Loading from "../../components/loading/loading.component";
 import "./pokemon-detail.styles.css";
 
 const GET_POKEMON_DETAIL = gql`
@@ -37,6 +38,7 @@ const GET_POKEMON_DETAIL = gql`
 
 const PokemonDetail = props => {
   const [thumbnail, setThumbnail] = useState("");
+  const [showNickname, setShowNickname] = useState(false);
 
   const { data, loading, error } = useQuery(GET_POKEMON_DETAIL, {
     variables: { pokemonName: props.match.params.pokemonName },
@@ -45,13 +47,16 @@ const PokemonDetail = props => {
     },
   });
 
-  const handleThumbnail = picture => {
-    setThumbnail(picture);
+  const catchPokemon = () => {
+    const randomNumber = Math.random();
+    console.log(randomNumber);
+    if (randomNumber >= 0.5) {
+      setShowNickname(true);
+    }
   };
 
   if (loading) {
-    return <h1>Loading...</h1>;
-  } else {
+    return <Loading />;
   }
 
   return (
@@ -129,9 +134,10 @@ const PokemonDetail = props => {
               </ul>
             </TabPanel>
           </Tabs>
-          <button type="button" className="btn btn-outline-success mt-1 mb-5">
+          <button onClick={catchPokemon} type="button" className="btn btn-outline-success mt-1 mb-5">
             Catch {props.match.params.pokemonName}
           </button>
+          {showNickname ? <input /> : <h1>Try again...</h1>}
         </div>
       </div>
     </div>
