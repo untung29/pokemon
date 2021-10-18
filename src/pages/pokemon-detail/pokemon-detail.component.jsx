@@ -66,6 +66,7 @@ const PokemonDetail = props => {
           />
           <div className="d-flex">
             <div
+              className="cursor-pointer"
               onClick={() => {
                 setThumbnail(data.pokemon.sprites.back_default);
               }}
@@ -73,6 +74,7 @@ const PokemonDetail = props => {
               <img className="img-fluid" src={data.pokemon.sprites.back_default} />
             </div>
             <div
+              className="cursor-pointer"
               onClick={() => {
                 setThumbnail(data.pokemon.sprites.front_shiny);
               }}
@@ -81,6 +83,7 @@ const PokemonDetail = props => {
             </div>
 
             <div
+              className="cursor-pointer"
               onClick={() => {
                 setThumbnail(data.pokemon.sprites.back_shiny);
               }}

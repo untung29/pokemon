@@ -6,7 +6,7 @@ import logo from "../../assets/images/pokemon-logo.png";
 
 const Header = () => {
   return (
-    <nav className="navbar navbar-light">
+    <nav className="container navbar navbar-light">
       <Link to="/" className="navbar-brand">
         <img src={logo} alt="pokemon-logo" />
       </Link>

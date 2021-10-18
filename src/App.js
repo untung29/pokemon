@@ -10,12 +10,16 @@ import Header from "../src/components/header/header.component";
 
 function App() {
   return (
-    <div className="container">
-      <Header />
-      <Switch>
-        <Route exact path="/" component={PokemonList} />
-        <Route exact path="/detail/:pokemonName" component={PokemonDetail} />
-      </Switch>
+    <div>
+      <div className="bg-dark">
+        <Header />
+      </div>
+      <div className="container mt-5">
+        <Switch>
+          <Route exact path="/" component={PokemonList} />
+          <Route exact path="/detail/:pokemonName" component={PokemonDetail} />
+        </Switch>
+      </div>
     </div>
   );
 }

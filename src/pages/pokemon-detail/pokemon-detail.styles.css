@@ -11,3 +11,7 @@
 .pokemon-name {
   text-transform: capitalize;
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}
