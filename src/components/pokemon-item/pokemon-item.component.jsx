@@ -12,7 +12,7 @@ const PokemonItem = ({ pokemonNumber, imgUrl, pokemonName }) => {
       </div>
       <img className="card-img-top" src={imgUrl} alt={pokemonName} />
       <div className="card-body">
-        <h5 class="card-title">{pokemonName}</h5>
+        <h5 className="card-title">{pokemonName}</h5>
       </div>
     </div>
   );

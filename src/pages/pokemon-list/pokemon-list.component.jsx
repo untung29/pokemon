@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-// import axios from "axios";
+import { Link } from "react-router-dom";
 
 // Component
 import PokemonItem from "../../components/pokemon-item/pokemon-item.component";
 
 // GraphQL
 import { useQuery, gql } from "@apollo/client";
+import "./pokemon-list.styles.css";
 
 const GET_LIST_POKEMONS = gql`
   query PokemonList {
@@ -27,9 +28,9 @@ const PokemonList = () => {
       <div className="row">
         {data.pokemons.results.map(({ id, name, image }) => {
           return (
-            <div className="col-lg-2 col-md-3 col-sm-6 mt-3">
-              <PokemonItem pokemonNumber={id} key={id} imgUrl={image} pokemonName={name} />
-            </div>
+            <Link key={id} to={`/detail/${name}`} className="col-lg-2 col-md-3 col-sm-6 mt-3 mb-3 text-decoration">
+              <PokemonItem pokemonNumber={id} imgUrl={image} pokemonName={name} />
+            </Link>
           );
         })}
       </div>
