@@ -1,0 +1,13 @@
+.pokemon-type-separator {
+  margin-right: 1rem;
+}
+
+.pokemon-move {
+  -moz-column-count: 4;
+  -webkit-column-count: 4;
+  column-count: 4;
+}
+
+.pokemon-name {
+  text-transform: capitalize;
+}
