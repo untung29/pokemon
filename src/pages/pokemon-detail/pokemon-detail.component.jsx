@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { gql, useQuery } from "@apollo/client";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
@@ -36,33 +36,65 @@ const GET_POKEMON_DETAIL = gql`
 `;
 
 const PokemonDetail = props => {
+  const [thumbnail, setThumbnail] = useState("");
+
   const { data, loading, error } = useQuery(GET_POKEMON_DETAIL, {
     variables: { pokemonName: props.match.params.pokemonName },
+    onCompleted: data => {
+      setThumbnail(data.pokemon.sprites.front_default);
+    },
   });
+
+  const handleThumbnail = picture => {
+    setThumbnail(picture);
+  };
 
   if (loading) {
     return <h1>Loading...</h1>;
+  } else {
   }
-
-  console.log(data.pokemon.moves[0].move.name);
 
   return (
     <div>
-      <div class="row mt-5">
-        <div class="col-lg-4 col-md-12">
+      <div className="row mt-5">
+        <div className="col-lg-4 col-md-12">
           <PokemonThumbnail
-            thumbnailPicture={data.pokemon.sprites.front_default}
+            thumbnailPicture={thumbnail}
             frontShiny={data.pokemon.sprites.front_shiny}
             backShiny={data.pokemon.sprites.back_shiny}
             backDefault={data.pokemon.sprites.back_default}
           />
+          <div className="d-flex">
+            <div
+              onClick={() => {
+                setThumbnail(data.pokemon.sprites.back_default);
+              }}
+            >
+              <img className="img-fluid" src={data.pokemon.sprites.back_default} />
+            </div>
+            <div
+              onClick={() => {
+                setThumbnail(data.pokemon.sprites.front_shiny);
+              }}
+            >
+              <img className="img-fluid" src={data.pokemon.sprites.front_shiny} />
+            </div>
+
+            <div
+              onClick={() => {
+                setThumbnail(data.pokemon.sprites.back_shiny);
+              }}
+            >
+              <img className="img-fluid" src={data.pokemon.sprites.back_shiny} />
+            </div>
+          </div>
         </div>
-        <div class="col-lg-8 col-md-12">
+        <div className="col-lg-8 col-md-12">
           <h3 className="mt-4 pokemon-name">{props.match.params.pokemonName}</h3>
           <div className="mb-4">
             {data.pokemon.types.map(type => {
               return (
-                <div className="d-inline pokemon-type-separator">
+                <div key={type.type.name} className="d-inline pokemon-type-separator">
                   <PokemonType typeName={type.type.name} />
                 </div>
               );
@@ -89,22 +121,16 @@ const PokemonDetail = props => {
               <h4 className="mb-4">Moves</h4>
               <ul className="pokemon-move">
                 {data.pokemon.moves.map(move => {
-                  return <li>{move.move.name}</li>;
+                  return <li key={move.move.name}>{move.move.name}</li>;
                 })}
               </ul>
             </TabPanel>
           </Tabs>
-          <button type="button" class="btn btn-outline-success mt-3">
+          <button type="button" className="btn btn-outline-success mt-1 mb-5">
             Catch {props.match.params.pokemonName}
           </button>
         </div>
       </div>
-
-      {/* <div className="d-flex">
-        <img className="img-fluid" src={data.pokemon.sprites.back_default} />
-        <img className="img-fluid" src={data.pokemon.sprites.front_shiny} />
-        <img className="img-fluid" src={data.pokemon.sprites.back_shiny} />
-      </div> */}
     </div>
   );
 };
