@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 // Component
 import PokemonItem from "../../components/pokemon-item/pokemon-item.component";
+import Loading from "../../components/loading/loading.component";
 
 // GraphQL
 import { useQuery, gql } from "@apollo/client";
@@ -36,7 +37,7 @@ const PokemonList = () => {
       </div>
     );
   } else {
-    return <h1>Loading...</h1>;
+    return <Loading />;
   }
 };
 
