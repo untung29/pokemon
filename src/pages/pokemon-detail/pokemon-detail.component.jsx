@@ -7,6 +7,8 @@ import "react-tabs/style/react-tabs.css";
 import PokemonThumbnail from "../../components/pokemon-thumbnail/pokemon-thumbnail.component.jsx";
 import PokemonType from "../../components/pokemon-type/pokemon-type.component";
 import Loading from "../../components/loading/loading.component";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./pokemon-detail.styles.css";
 
 const GET_POKEMON_DETAIL = gql`
@@ -40,6 +42,14 @@ const PokemonDetail = props => {
   const [thumbnail, setThumbnail] = useState("");
   const [showNickname, setShowNickname] = useState(false);
 
+  const notification = isFailed => {
+    if (isFailed) {
+      toast.error("The pokemon escaped. Please try again.");
+    } else {
+      toast.success("You successfully catch the pokemon. Give him a nickname!");
+    }
+  };
+
   const { data, loading, error } = useQuery(GET_POKEMON_DETAIL, {
     variables: { pokemonName: props.match.params.pokemonName },
     onCompleted: data => {
@@ -49,9 +59,11 @@ const PokemonDetail = props => {
 
   const catchPokemon = () => {
     const randomNumber = Math.random();
-    console.log(randomNumber);
     if (randomNumber >= 0.5) {
       setShowNickname(true);
+      notification(false);
+    } else {
+      notification(true);
     }
   };
 
@@ -140,6 +152,17 @@ const PokemonDetail = props => {
           {showNickname ? <input /> : <h1>Try again...</h1>}
         </div>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 };
