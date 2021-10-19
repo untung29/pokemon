@@ -146,10 +146,15 @@ const PokemonDetail = props => {
               </ul>
             </TabPanel>
           </Tabs>
-          <button onClick={catchPokemon} type="button" className="btn btn-outline-success mt-1 mb-5">
+          <button onClick={catchPokemon} type="button" className="btn btn-outline-success mt-1 mb-3">
             Catch {props.match.params.pokemonName}
           </button>
-          {showNickname ? <input /> : <h1>Try again...</h1>}
+          {showNickname && (
+            <div className="w-50 mb-5">
+              <label for="pokemonNickname">Nickname</label>
+              <input type="text" class="form-control" id="pokemonNickname" placeholder="Enter your pokemon nickname" />
+            </div>
+          )}
         </div>
       </div>
       <ToastContainer

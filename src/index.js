@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 
 // Setting up apollo client
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { ApolloClient, InMemoryCache, ApolloProvider, gql } from "@apollo/client";
 
 const client = new ApolloClient({
   uri: "https://graphql-pokeapi.vercel.app/api/graphql",
