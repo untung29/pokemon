@@ -2,20 +2,21 @@ export const setPokemon = (id, value) => {
   let savedPokemon = {
     [id]: [
       {
-        pokemonNickname: value.pokemonNickname,
+        ...value,
       },
     ],
   };
 
-  if (getPokemon()) {
-    if (getPokemon()[id]) {
-      savedPokemon[id] = [...getPokemon()[id], { pokemonNickname: value.pokemonNickname }];
+  let currentPokemon = getPokemon();
+
+  if (currentPokemon) {
+    if (currentPokemon[id]) {
+      currentPokemon[id].push({ ...value });
+      savedPokemon = currentPokemon;
     } else {
-      savedPokemon = { ...getPokemon(), [id]: { pokemonNickname: value.pokemonNickname } };
+      savedPokemon = { ...currentPokemon, [id]: [{ ...value }] };
     }
   }
-
-  console.log(getPokemon());
 
   let pokemonStringify = JSON.stringify(savedPokemon);
 

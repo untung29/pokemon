@@ -47,7 +47,6 @@ const GET_POKEMON_DETAIL = gql`
 const PokemonDetail = props => {
   const [thumbnail, setThumbnail] = useState("");
   const [showNickname, setShowNickname] = useState(false);
-  const [invalidFeedback, setInvalidFeedback] = useState("");
 
   const notification = isFailed => {
     if (isFailed) {
@@ -75,7 +74,12 @@ const PokemonDetail = props => {
   };
 
   const handleOnSubmit = value => {
-    let pokemonValue = { pokemonNickname: value.pokemonName };
+    let pokemonValue = {
+      pokemonNickname: value.pokemonName,
+      pokemonImage: data.pokemon.sprites.front_default,
+      pokemonName: props.match.params.pokemonName,
+      pokemonId: Math.floor(Math.random() * 100000),
+    };
 
     // // Retrieve
     // if (getPokemon()[data.pokemon.id] !== undefined) {
@@ -87,9 +91,27 @@ const PokemonDetail = props => {
 
   const validate = values => {
     const errors = {};
+    const getCurrentPokemon = getPokemon();
+    console.log(getCurrentPokemon);
     if (!values.pokemonName) {
       errors.pokemonName = "Pokemon name is required";
     }
+
+    // Validation for nickname
+    for (const key in getCurrentPokemon) {
+      for (const pokemon of getCurrentPokemon[key]) {
+        if (pokemon.pokemonNickname === values.pokemonName) {
+          errors.pokemonName = "You have already used this nickname. Use another nickname";
+        }
+      }
+    }
+
+    // getCurrentPokemon.forEach(({ pokemonNickname }) => {
+    //   if (pokemonNickname === values.pokemonName) {
+    //     errors.pokemonName = "You have already used this nickname. Use another nickname";
+    //   }
+    // });
+
     return errors;
   };
 
@@ -101,7 +123,7 @@ const PokemonDetail = props => {
     },
   });
 
-  console.log(formik.touched.pokemonName);
+  const savePokemon = () => {};
 
   if (loading) {
     return <Loading />;
@@ -185,10 +207,6 @@ const PokemonDetail = props => {
 
           {showNickname ? (
             <div className="w-50 mb-5">
-              {/* <Input />
-              <button onClick={handleOnSubmit} type="button" className="btn btn-outline-success mt-2 mb-3">
-                Save Pokemon
-              </button> */}
               <form onSubmit={formik.handleSubmit}>
                 <label htmlFor="pokemonNickname">Nickname</label>
                 <input
@@ -206,7 +224,7 @@ const PokemonDetail = props => {
                 <div className="invalid-feedback">{formik.errors.pokemonName}</div>
                 <div className="valid-feedback">Looks good.</div>
 
-                <button type="submit" className="btn btn-outline-success mt-2 mb-3">
+                <button onClick={savePokemon} type="submit" className="btn btn-outline-success mt-2 mb-3">
                   Save Pokemon
                 </button>
               </form>

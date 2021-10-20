@@ -10,7 +10,7 @@ const Header = () => {
       <Link to="/" className="navbar-brand">
         <img src={logo} alt="pokemon-logo" />
       </Link>
-      <Link to="/detail/:pokemonId" className="navbar-nav">
+      <Link to="/mypokemon" className="navbar-nav">
         My Pokemon
       </Link>
     </nav>
