@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { gql, useQuery } from "@apollo/client";
+import { fromPromise, gql, useQuery } from "@apollo/client";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 
@@ -8,8 +8,13 @@ import PokemonThumbnail from "../../components/pokemon-thumbnail/pokemon-thumbna
 import PokemonType from "../../components/pokemon-type/pokemon-type.component";
 import Loading from "../../components/loading/loading.component";
 import { ToastContainer, toast } from "react-toastify";
+import Input from "../../components/input";
 import "react-toastify/dist/ReactToastify.css";
 import "./pokemon-detail.styles.css";
+import { useFormik } from "formik";
+
+// Local storage
+import { setPokemon } from "../../local-storage";
 
 const GET_POKEMON_DETAIL = gql`
   query PokemonDetail($pokemonName: String!) {
@@ -41,6 +46,7 @@ const GET_POKEMON_DETAIL = gql`
 const PokemonDetail = props => {
   const [thumbnail, setThumbnail] = useState("");
   const [showNickname, setShowNickname] = useState(false);
+  const [invalidFeedback, setInvalidFeedback] = useState("");
 
   const notification = isFailed => {
     if (isFailed) {
@@ -66,6 +72,32 @@ const PokemonDetail = props => {
       notification(true);
     }
   };
+
+  const handlePokemonLocal = event => {
+    // setPokemonNickname(event.target.value);
+  };
+
+  const handleOnSubmit = value => {
+    console.log(value);
+  };
+
+  const validate = values => {
+    const errors = {};
+    if (!values.pokemonName) {
+      errors.pokemonName = "Pokemon name is required";
+    }
+    return errors;
+  };
+
+  const formik = useFormik({
+    initialValues: { pokemonName: "" },
+    validate,
+    onSubmit: value => {
+      handleOnSubmit(value);
+    },
+  });
+
+  console.log(formik.touched.pokemonName);
 
   if (loading) {
     return <Loading />;
@@ -146,14 +178,39 @@ const PokemonDetail = props => {
               </ul>
             </TabPanel>
           </Tabs>
-          <button onClick={catchPokemon} type="button" className="btn btn-outline-success mt-1 mb-3">
-            Catch {props.match.params.pokemonName}
-          </button>
-          {showNickname && (
+
+          {showNickname ? (
             <div className="w-50 mb-5">
-              <label for="pokemonNickname">Nickname</label>
-              <input type="text" class="form-control" id="pokemonNickname" placeholder="Enter your pokemon nickname" />
+              {/* <Input />
+              <button onClick={handleOnSubmit} type="button" className="btn btn-outline-success mt-2 mb-3">
+                Save Pokemon
+              </button> */}
+              <form onSubmit={formik.handleSubmit}>
+                <label htmlFor="pokemonNickname">Nickname</label>
+                <input
+                  type="text"
+                  className={`form-control ${formik.errors.pokemonName && formik.touched.pokemonName && "is-invalid"} ${
+                    !formik.errors.pokemonName && formik.touched.pokemonName && "is-valid"
+                  } `}
+                  id="pokemonName"
+                  name="pokemonName"
+                  placeholder="Enter your pokemon nickname"
+                  onChange={formik.handleChange}
+                  value={formik.values.pokemonName}
+                  onBlur={formik.handleBlur}
+                />
+                <div className="invalid-feedback">{formik.errors.pokemonName}</div>
+                <div className="valid-feedback">Looks good.</div>
+
+                <button type="submit" className="btn btn-outline-success mt-2 mb-3">
+                  Save Pokemon
+                </button>
+              </form>
             </div>
+          ) : (
+            <button onClick={catchPokemon} type="button" className="btn btn-outline-success mt-1 mb-3">
+              Catch {props.match.params.pokemonName}
+            </button>
           )}
         </div>
       </div>
