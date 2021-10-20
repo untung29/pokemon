@@ -85,6 +85,7 @@ const PokemonDetail = props => {
     // if (getPokemon()[data.pokemon.id] !== undefined) {
     //   pokemonValue = { ...getPokemon()[data.pokemon.id], pokemonNickname: value.pokemonName };
     // }
+    props.history.replace("/");
 
     setPokemon(data.pokemon.id, pokemonValue);
   };
@@ -92,7 +93,6 @@ const PokemonDetail = props => {
   const validate = values => {
     const errors = {};
     const getCurrentPokemon = getPokemon();
-    console.log(getCurrentPokemon);
     if (!values.pokemonName) {
       errors.pokemonName = "Pokemon name is required";
     }

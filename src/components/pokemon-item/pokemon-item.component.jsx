@@ -1,7 +1,7 @@
 import React from "react";
 import "./pokemon-item.styles.css";
 
-const PokemonItem = ({ pokemonNumber, imgUrl, pokemonName }) => {
+const PokemonItem = ({ pokemonNumber, imgUrl, pokemonName, nickname }) => {
   return (
     <div className="card pokemon-card">
       <div className="card-top-container d-flex flex-direction-row justify-content-between card-top-padding">
@@ -13,6 +13,7 @@ const PokemonItem = ({ pokemonNumber, imgUrl, pokemonName }) => {
       <img className="card-img-top" src={imgUrl} alt={pokemonName} />
       <div className="card-body">
         <h5 className="card-title">{pokemonName}</h5>
+        {nickname && <p className="mt-3">Nickname: {nickname}</p>}
       </div>
     </div>
   );
