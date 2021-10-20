@@ -14,11 +14,12 @@ import "./pokemon-detail.styles.css";
 import { useFormik } from "formik";
 
 // Local storage
-import { setPokemon } from "../../local-storage";
+import { setPokemon, getPokemon } from "../../local-storage";
 
 const GET_POKEMON_DETAIL = gql`
   query PokemonDetail($pokemonName: String!) {
     pokemon(name: $pokemonName) {
+      id
       moves {
         move {
           name
@@ -73,12 +74,15 @@ const PokemonDetail = props => {
     }
   };
 
-  const handlePokemonLocal = event => {
-    // setPokemonNickname(event.target.value);
-  };
-
   const handleOnSubmit = value => {
-    console.log(value);
+    let pokemonValue = { pokemonNickname: value.pokemonName };
+
+    // // Retrieve
+    // if (getPokemon()[data.pokemon.id] !== undefined) {
+    //   pokemonValue = { ...getPokemon()[data.pokemon.id], pokemonNickname: value.pokemonName };
+    // }
+
+    setPokemon(data.pokemon.id, pokemonValue);
   };
 
   const validate = values => {
