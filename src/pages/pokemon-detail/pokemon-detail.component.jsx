@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useState, useContext } from "react";
 import { fromPromise, gql, useQuery } from "@apollo/client";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
@@ -15,6 +15,7 @@ import { useFormik } from "formik";
 
 // Local storage
 import { setPokemon, getPokemon } from "../../local-storage";
+import PokemonContext from "../../context/pokemon-context";
 
 const GET_POKEMON_DETAIL = gql`
   query PokemonDetail($pokemonName: String!) {
@@ -45,6 +46,8 @@ const GET_POKEMON_DETAIL = gql`
 `;
 
 const PokemonDetail = props => {
+  const pokemonContext = useContext(PokemonContext);
+  console.log(pokemonContext);
   const [thumbnail, setThumbnail] = useState("");
   const [showNickname, setShowNickname] = useState(false);
 

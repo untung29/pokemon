@@ -2,6 +2,15 @@
   /* width: 9rem; */
 }
 
+.text-decoration {
+  text-decoration: none;
+  color: black;
+}
+
 .card-top-padding {
   padding: 0 1rem;
+}
+
+.pointer {
+  cursor: pointer;
 }
