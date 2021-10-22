@@ -1,11 +1,7 @@
-import React, { useEffect, useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
 
 // Component
 import PokemonItem from "../../components/pokemon-item/pokemon-item.component";
-import Loading from "../../components/loading/loading.component";
-
-import "./my-pokemon.styles.css";
 
 // Local storage
 import { getPokemon } from "../../local-storage";

@@ -1,5 +1,10 @@
-import React, { useContext } from "react";
-import "./pokemon-item.styles.css";
+import React from "react";
+
+// this comment tells babel to convert jsx to calls to a function called jsx instead of React.createElement
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import { jsx } from "@emotion/react";
+import { useContext } from "react";
 
 import { Link } from "react-router-dom";
 
@@ -7,6 +12,9 @@ import { Link } from "react-router-dom";
 import { removePokemon, getPokemon } from "../../local-storage/index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+
+// styles
+import { textDecoration, cartTopPadding, pointer } from "./pokemon-item.styles.jsx";
 
 const PokemonItem = ({
   pokemonNumber,
@@ -21,18 +29,18 @@ const PokemonItem = ({
 }) => {
   return (
     <div className="card pokemon-card">
-      <div className="card-top-container d-flex flex-direction-row justify-content-between card-top-padding">
+      <div css={cartTopPadding} className="card-top-container d-flex flex-direction-row justify-content-between">
         <div className="pokemon-number">#{pokemonNumber}</div>
         <div className="pokemon-owned">
           {!nickname ? (
             <p>Owned: {ownedNumber}</p>
           ) : (
             <a
+              css={[textDecoration, pointer]}
               onClick={() => {
                 removePokemon(pokemonId, pokemonIdLocal);
                 setData(getPokemon());
               }}
-              className="pointer text-decoration"
             >
               <FontAwesomeIcon icon={faTrashAlt} />
             </a>
@@ -40,7 +48,7 @@ const PokemonItem = ({
         </div>
       </div>
       {to ? (
-        <Link className="text-decoration" to={to}>
+        <Link css={textDecoration} to={to}>
           <img className="card-img-top" src={imgUrl} alt={pokemonName} />
           <div className="card-body">
             <h5 className="card-title">{pokemonName}</h5>

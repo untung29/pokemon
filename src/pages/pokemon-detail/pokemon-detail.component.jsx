@@ -10,12 +10,17 @@ import Loading from "../../components/loading/loading.component";
 import { ToastContainer, toast } from "react-toastify";
 import Input from "../../components/input";
 import "react-toastify/dist/ReactToastify.css";
-import "./pokemon-detail.styles.css";
+// import "./pokemon-detail.styles.css";
 import { useFormik } from "formik";
 
 // Local storage
 import { setPokemon, getPokemon } from "../../local-storage";
 import PokemonContext from "../../context/pokemon-context";
+
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import { jsx } from "@emotion/react";
+import { pokemonTypeSeparator, pokemonMove, pokemonName, cursorPointer } from "./pokemon-detail.styles";
 
 const GET_POKEMON_DETAIL = gql`
   query PokemonDetail($pokemonName: String!) {
@@ -144,7 +149,7 @@ const PokemonDetail = props => {
           />
           <div className="d-flex">
             <div
-              className="cursor-pointer"
+              css={cursorPointer}
               onClick={() => {
                 setThumbnail(data.pokemon.sprites.back_default);
               }}
@@ -152,7 +157,7 @@ const PokemonDetail = props => {
               <img className="img-fluid" src={data.pokemon.sprites.back_default} />
             </div>
             <div
-              className="cursor-pointer"
+              css={cursorPointer}
               onClick={() => {
                 setThumbnail(data.pokemon.sprites.front_shiny);
               }}
@@ -161,7 +166,7 @@ const PokemonDetail = props => {
             </div>
 
             <div
-              className="cursor-pointer"
+              css={cursorPointer}
               onClick={() => {
                 setThumbnail(data.pokemon.sprites.back_shiny);
               }}
@@ -171,11 +176,13 @@ const PokemonDetail = props => {
           </div>
         </div>
         <div className="col-lg-8 col-md-12">
-          <h3 className="mt-4 pokemon-name">{props.match.params.pokemonName}</h3>
+          <h3 css={pokemonName} className="mt-4">
+            {props.match.params.pokemonName}
+          </h3>
           <div className="mb-4">
             {data.pokemon.types.map(type => {
               return (
-                <div key={type.type.name} className="d-inline pokemon-type-separator">
+                <div css={pokemonTypeSeparator} key={type.type.name} className="d-inline">
                   <PokemonType typeName={type.type.name} />
                 </div>
               );
@@ -200,7 +207,7 @@ const PokemonDetail = props => {
             </TabPanel>
             <TabPanel>
               <h4 className="mb-4">Moves</h4>
-              <ul className="pokemon-move">
+              <ul css={pokemonMove}>
                 {data.pokemon.moves.map(move => {
                   return <li key={move.move.name}>{move.move.name}</li>;
                 })}

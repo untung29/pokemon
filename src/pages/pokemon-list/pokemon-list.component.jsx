@@ -7,14 +7,23 @@ import PokemonItem from "../../components/pokemon-item/pokemon-item.component";
 import Loading from "../../components/loading/loading.component";
 
 // GraphQL
-import { useQuery, gql, useLazyQuery } from "@apollo/client";
-import "./pokemon-list.styles.css";
+import { useQuery, gql } from "@apollo/client";
+// import "./pokemon-list.styles.css";
 
 // Context
 import { PokemonContext } from "../../context/pokemon-context";
 
 // Local storage
 import { getPokemon } from "../../local-storage";
+
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import { css, jsx } from "@emotion/react";
+
+const textDecoration = css`
+  text-decoration: none;
+  color: black;
+`;
 
 const GET_LIST_POKEMONS = gql`
   query PokemonList($offset: Int) {
@@ -31,7 +40,6 @@ const GET_LIST_POKEMONS = gql`
 const PokemonList = props => {
   const pokemonContext = useContext(PokemonContext);
   const myPokemon = getPokemon();
-  // myPokemon[]
 
   const { loading, error, data, fetchMore } = useQuery(GET_LIST_POKEMONS, {
     variables: { offset: 0 },
@@ -71,7 +79,12 @@ const PokemonList = props => {
             }
 
             return (
-              <Link key={id} to={`/detail/${name}`} className="col-lg-2 col-md-3 col-sm-6 mt-3 mb-3 text-decoration">
+              <Link
+                css={textDecoration}
+                key={id}
+                to={`/detail/${name}`}
+                className="col-lg-2 col-md-3 col-sm-6 mt-3 mb-3"
+              >
                 <PokemonItem pokemonNumber={id} imgUrl={image} pokemonName={name} ownedNumber={length} />
               </Link>
             );
