@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { gql, useQuery } from "@apollo/client";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
@@ -14,7 +14,7 @@ import { useFormik } from "formik";
 
 // Local storage
 import { setPokemon, getPokemon } from "../../local-storage";
-import PokemonContext from "../../context/pokemon-context";
+// import PokemonContext from "../../context/pokemon-context";
 
 /** @jsxRuntime classic */
 /** @jsx jsx */
@@ -160,7 +160,7 @@ const PokemonDetail = props => {
                 setThumbnail(data.pokemon.sprites.front_shiny);
               }}
             >
-              <img className="img-fluid" src={data.pokemon.sprites.front_shiny} alt="Pokemon Front"/>
+              <img className="img-fluid" src={data.pokemon.sprites.front_shiny} alt="Pokemon Front" />
             </div>
 
             <div
@@ -169,7 +169,7 @@ const PokemonDetail = props => {
                 setThumbnail(data.pokemon.sprites.back_shiny);
               }}
             >
-              <img className="img-fluid" src={data.pokemon.sprites.back_shiny} alt="Pokemon Back Shiny"/>
+              <img className="img-fluid" src={data.pokemon.sprites.back_shiny} alt="Pokemon Back Shiny" />
             </div>
           </div>
         </div>

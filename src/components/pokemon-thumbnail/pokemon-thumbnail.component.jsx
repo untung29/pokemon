@@ -11,7 +11,7 @@ const imgWidth = css`
 `;
 
 const PokemonThumbnail = ({ thumbnailPicture, frontShiny, backDefault, backShiny }) => {
-  return <img css={imgWidth} className="img-thumbnail" src={thumbnailPicture} alt="Pokemon Thumbnail Picture" />;
+  return <img css={imgWidth} className="img-thumbnail" src={thumbnailPicture} alt="Pokemon Thumbnail" />;
 };
 
 export default PokemonThumbnail;
