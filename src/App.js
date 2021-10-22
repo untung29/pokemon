@@ -1,4 +1,4 @@
-import logo from "./logo.svg";
+// import logo from "./logo.svg";
 import React from "react";
 
 // Router Functionality
@@ -15,7 +15,7 @@ function App() {
   return (
     <PokemonProvider>
       <div>
-        <div className="bg-dark">
+      <div className="bg-dark">
           <Header />
         </div>
         <div className="container mt-5">

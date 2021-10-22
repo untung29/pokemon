@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -41,7 +41,7 @@ const PokemonList = props => {
   const pokemonContext = useContext(PokemonContext);
   const myPokemon = getPokemon();
 
-  const { loading, error, data, fetchMore } = useQuery(GET_LIST_POKEMONS, {
+  const { loading, fetchMore } = useQuery(GET_LIST_POKEMONS, {
     variables: { offset: 0 },
     onCompleted: data => {
       pokemonContext.setPokemons(data.pokemons.results);

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+// import React, { useContext } from "react";
 
 export const setPokemon = (id, value) => {
   let savedPokemon = {

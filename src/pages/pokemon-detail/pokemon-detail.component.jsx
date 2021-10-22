@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import { fromPromise, gql, useQuery } from "@apollo/client";
+import { useState, useContext } from "react";
+import { gql, useQuery } from "@apollo/client";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 
@@ -8,7 +8,6 @@ import PokemonThumbnail from "../../components/pokemon-thumbnail/pokemon-thumbna
 import PokemonType from "../../components/pokemon-type/pokemon-type.component";
 import Loading from "../../components/loading/loading.component";
 import { ToastContainer, toast } from "react-toastify";
-import Input from "../../components/input";
 import "react-toastify/dist/ReactToastify.css";
 // import "./pokemon-detail.styles.css";
 import { useFormik } from "formik";
@@ -51,7 +50,7 @@ const GET_POKEMON_DETAIL = gql`
 `;
 
 const PokemonDetail = props => {
-  const pokemonContext = useContext(PokemonContext);
+  // const pokemonContext = useContext(PokemonContext);
   const [thumbnail, setThumbnail] = useState("");
   const [showNickname, setShowNickname] = useState(false);
 
@@ -63,7 +62,7 @@ const PokemonDetail = props => {
     }
   };
 
-  const { data, loading, error } = useQuery(GET_POKEMON_DETAIL, {
+  const { data, loading } = useQuery(GET_POKEMON_DETAIL, {
     variables: { pokemonName: props.match.params.pokemonName },
     onCompleted: data => {
       setThumbnail(data.pokemon.sprites.front_default);
@@ -153,7 +152,7 @@ const PokemonDetail = props => {
                 setThumbnail(data.pokemon.sprites.back_default);
               }}
             >
-              <img className="img-fluid" src={data.pokemon.sprites.back_default} />
+              <img className="img-fluid" src={data.pokemon.sprites.back_default} alt="Pokemon Back" />
             </div>
             <div
               css={cursorPointer}
@@ -161,7 +160,7 @@ const PokemonDetail = props => {
                 setThumbnail(data.pokemon.sprites.front_shiny);
               }}
             >
-              <img className="img-fluid" src={data.pokemon.sprites.front_shiny} />
+              <img className="img-fluid" src={data.pokemon.sprites.front_shiny} alt="Pokemon Front"/>
             </div>
 
             <div
@@ -170,7 +169,7 @@ const PokemonDetail = props => {
                 setThumbnail(data.pokemon.sprites.back_shiny);
               }}
             >
-              <img className="img-fluid" src={data.pokemon.sprites.back_shiny} />
+              <img className="img-fluid" src={data.pokemon.sprites.back_shiny} alt="Pokemon Back Shiny"/>
             </div>
           </div>
         </div>

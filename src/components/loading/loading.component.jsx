@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 
 // this comment tells babel to convert jsx to calls to a function called jsx instead of React.createElement
 /** @jsxRuntime classic */
@@ -10,7 +10,7 @@ import { loadingState } from "./loading.styles.jsx";
 const Loading = () => {
   return (
     <div className="d-flex flex-column align-items-center">
-      <img css={loadingState} src={PokemonBall} />
+      <img css={loadingState} src={PokemonBall} alt="Loading state" />
       <h3>Loading...</h3>
     </div>
   );

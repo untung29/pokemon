@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 // import "./pokemon-type.styles.css";
 
 // this comment tells babel to convert jsx to calls to a function called jsx instead of React.createElement

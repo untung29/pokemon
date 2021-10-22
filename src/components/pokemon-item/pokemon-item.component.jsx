@@ -1,10 +1,10 @@
-import React from "react";
+// import React from "react";
 
 // this comment tells babel to convert jsx to calls to a function called jsx instead of React.createElement
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from "@emotion/react";
-import { useContext } from "react";
+// import { useContext } from "react";
 
 import { Link } from "react-router-dom";
 
@@ -35,7 +35,7 @@ const PokemonItem = ({
           {!nickname ? (
             <p className="fw-bold">Owned: {ownedNumber}</p>
           ) : (
-            <a
+            <div
               css={[textDecoration, pointer]}
               onClick={() => {
                 removePokemon(pokemonId, pokemonIdLocal);
@@ -43,7 +43,7 @@ const PokemonItem = ({
               }}
             >
               <FontAwesomeIcon icon={faTrashAlt} />
-            </a>
+            </div>
           )}
         </div>
       </div>

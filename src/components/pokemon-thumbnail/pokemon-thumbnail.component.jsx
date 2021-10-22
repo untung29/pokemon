@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 
 // this comment tells babel to convert jsx to calls to a function called jsx instead of React.createElement
 /** @jsxRuntime classic */
@@ -11,7 +11,7 @@ const imgWidth = css`
 `;
 
 const PokemonThumbnail = ({ thumbnailPicture, frontShiny, backDefault, backShiny }) => {
-  return <img css={imgWidth} className="img-thumbnail" src={thumbnailPicture} />;
+  return <img css={imgWidth} className="img-thumbnail" src={thumbnailPicture} alt="Pokemon Thumbnail Picture" />;
 };
 
 export default PokemonThumbnail;
