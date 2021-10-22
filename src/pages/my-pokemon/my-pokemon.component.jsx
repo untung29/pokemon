@@ -37,7 +37,13 @@ const MyPokemon = () => {
     return myPokemonList;
   };
 
-  return <div className="row">{renderPokemon()}</div>;
+  return (
+    <div className="row">
+      {renderPokemon()}
+
+      <h3>Find More Pokemons!</h3>
+    </div>
+  );
 };
 
 export default MyPokemon;

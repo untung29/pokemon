@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 // this comment tells babel to convert jsx to calls to a function called jsx instead of React.createElement
 /** @jsxRuntime classic */
@@ -8,14 +8,7 @@ import { Link } from "react-router-dom";
 
 // Assets
 import logo from "../../assets/images/pokemon-logo.png";
-
 import { myPokemonText } from "./header.styles";
-
-// const myPokemonText = css`
-//   color: white;
-//   text-decoration: none;
-//   padding: 10px;
-// `;
 
 const Header = () => {
   return (

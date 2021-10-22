@@ -52,7 +52,6 @@ const GET_POKEMON_DETAIL = gql`
 
 const PokemonDetail = props => {
   const pokemonContext = useContext(PokemonContext);
-  console.log(pokemonContext);
   const [thumbnail, setThumbnail] = useState("");
   const [showNickname, setShowNickname] = useState(false);
 

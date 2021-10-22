@@ -33,7 +33,7 @@ const PokemonItem = ({
         <div className="pokemon-number">#{pokemonNumber}</div>
         <div className="pokemon-owned">
           {!nickname ? (
-            <p>Owned: {ownedNumber}</p>
+            <p className="fw-bold">Owned: {ownedNumber}</p>
           ) : (
             <a
               css={[textDecoration, pointer]}
