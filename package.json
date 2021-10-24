@@ -45,7 +45,7 @@
     "start": "react-scripts start",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "build": "react-scripts build && cp manifest.json build/ && sw-precache --root='build/' --static-file-globs='build/**/!(*map*)'",
+    "build": "react-scripts build",
     "gh-pages": "gh-pages -d build"
   },
   "eslintConfig": {
